@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Carteira Digital</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f7a3d;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.app{
+background:white;
+width:350px;
+border-radius:10px;
+padding:25px;
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+
+h2{
+text-align:center;
+color:#0f7a3d;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#0f7a3d;
+border:none;
+border-radius:6px;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#095c2e;
+}
+
+.menu{
+display:none;
+}
+
+.saldo{
+background:#f2f2f2;
+padding:15px;
+border-radius:6px;
+text-align:center;
+font-size:20px;
+margin-bottom:10px;
+}
+
+.hist{
+max-height:120px;
+overflow:auto;
+background:#fafafa;
+padding:10px;
+border-radius:6px;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<div id="login">
+
+<h2>Login</h2>
+
+<input type="tel" id="numero" placeholder="Seu número">
+
+<input type="password" id="pin" placeholder="PIN">
+
+<button onclick="entrar()">Entrar</button>
+
+</div>
+
+
+<div class="menu" id="menu">
+
+<h2>Carteira</h2>
+
+<div class="saldo">
+Saldo: <span id="saldo">500</span> MT
+</div>
+
+<input type="tel" id="destino" placeholder="Número destinatário">
+
+<input type="number" id="valor" placeholder="Valor">
+
+<button onclick="transferir()">Transferir</button>
+
+<h3>Histórico</h3>
+
+<div class="hist" id="historico"></div>
+
+</div>
+
+</div>
+
+<script>
+
+let saldo = 500;
+
+function entrar(){
+
+let numero = document.getElementById("numero").value;
+let pin = document.getElementById("pin").value;
+
+if(numero && pin){
+
+document.getElementById("login").style.display="none";
+document.getElementById("menu").style.display="block";
+
+}
+
+}
+
+function transferir(){
+
+let destino = document.getElementById("destino").value;
+let valor = parseFloat(document.getElementById("valor").value);
+
+if(valor > saldo){
+
+alert("Saldo insuficiente");
+return;
+
+}
+
+saldo -= valor;
+
+document.getElementById("saldo").innerText = saldo;
+
+let hist = document.getElementById("historico");
+
+let data = new Date().toLocaleString();
+
+hist.innerHTML +=
+"<p>Transferido "+valor+" MT para "+destino+" - "+data+"</p>";
+
+}
+
+</script>
+
+</body>
+</html>
